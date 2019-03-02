@@ -81,6 +81,7 @@ class Player(Turtle):
 		if new_y <= -screen_height:
 			running=False
 
+'''
 pl= Player(0,0, 1, 2)
 while True:
 	pl.move()
