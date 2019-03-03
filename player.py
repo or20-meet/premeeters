@@ -12,7 +12,7 @@ import time
 
 
 
-global direction 
+
 direction= up
 
 
@@ -87,3 +87,4 @@ while True:
 	pl.move()
 	turtle.listen()
 turtle.mainloop()
+'''

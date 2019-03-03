@@ -47,8 +47,35 @@ def collide(platform):
 	return False
 
 
+def move_platforms_down():
+	for new_platforms in PLATFORMS:
+		new_platforms.move()
 
-for i in range(number_of_platforms):
-	new_plat= Platform(x_pos[i-1], screen_height,plat_width, plat_height, plat_dy)
-	platforms.append(new_plat)
+player= Player(0,-340, 2, 2)
 
+turtle.onkeypress(left,"Left")
+turtle.onkeypress(space, "space")
+turtle.onkeypress(right,"Right")
+turtle.listen()
+
+def playgame():
+	for i in range(number_of_platforms):
+		new_plat= Platform(x_pos[i-1], screen_height,plat_width, plat_height, plat_dy)
+		platforms.append(new_plat)
+	
+	while running:
+		turtle.listen()
+		screen.ontimer(move_platforms_down(), 3*1000)
+		player.move()
+		for platform in platforms:
+			if not player.ycor()==platform.ycor()+ plat_height+player.height:
+				screen.ontimer(player.fallingdown(), 7*1000)
+			running=collide(platform)
+
+		if screen_width!= int(turtle.getcanvas().winfo_width()/2) or screen_height != int(turtle.getcanvas().winfo_height()/2):
+			screen_width= int(turtle.getcanvas().winfo_width()/2)
+			screen_height= int(turtle.getcanvas().winfo_height()/2)
+		turtle.update()
+		time.sleep(sleep)
+
+playgame()
